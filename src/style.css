@@ -25,18 +25,48 @@
 }
 
 .nav-buttons button {
-    background-color: #00bbcc;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    margin-left: 10px;
+    background-color: white;
+    color: black;
+    border-style: none;
+    border-radius: 20px;
+    padding: 0.6rem 2rem 0.6rem 2rem;
+    margin: 0rem 0.5rem;
     cursor: pointer;
 }
 
 .nav-buttons button:hover {
-    background-color: #097d8a;
+    background-color: 0.5;
 }
+
+
+.login-btn-footer>button {
+    border-style: solid;
+    background-color: transparent;
+    color: white;
+}
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: rgb(29, 155, 240);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}   
 
 /* LOG IN POP UP */
 .login-modal {
@@ -46,19 +76,46 @@
 .login-modal-content {
     text-align: center;
     background-color: #097d8a;
+    width: 50%;
+    top: 50%;
+    margin: auto;
+    margin-top: 5rem;
+    background-color: #097d8a;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
 .login-close {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    padding-right: 1rem;
+    padding-left: 1rem;
     font-size: 30px;
+    cursor: pointer;
 }
 
-.content.login {
+.content-login {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 50px;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+
+}
+
+.content-login input {
+    margin-bottom: 1rem;
+    width: 40%;
+    padding: 0.7rem 1rem 0.7rem 1rem;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.content-login>button {
+    border-style: none;
+    border-radius: 20px;
+    width: 40%;
+    padding: 0.7rem 1rem 0.7rem 1rem;
+    background-color: rgb(29, 155, 240);
+    color: white;
 }
