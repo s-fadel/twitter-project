@@ -4,23 +4,19 @@ const Homepage = ({}) => {
   const [showLogin, setShowLogin] = useState(false); 
   const [username, setUsername] = useState(""); 
 
-  // Funktion som öppnar popup-rutan
   const handleLoginClick = () => {
     setShowLogin(true);
   };
 
-  // Funktion som stänger popup-rutan
   const handleLoginClose = () => {
     setShowLogin(false);
   };
 
-  // Funktion som hanterar ändringar i användarnamnsfältet
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
   const handleNextClick = () => {
-    // Här kan du lägga till logik för att kontrollera användarnamnet och eventuellt visa nästa steg i inloggningen
   };
 
   return (
