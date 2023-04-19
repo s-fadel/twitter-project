@@ -4,27 +4,27 @@
     align-items: center;
     height: 60px;
     padding: 0 20px;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     display: flex;
     list-style: none;
-  }
-  
-  .nav-links li {
+}
+
+.nav-links li {
     margin-right: 20px;
-  }
-  
-  .nav-links a {
+}
+
+.nav-links a {
     color: #333;
     text-decoration: none;
-  }
-  
-  .nav-buttons {
+}
+
+.nav-buttons {
     display: flex;
-  }
-  
-  .nav-buttons button {
+}
+
+.nav-buttons button {
     background-color: #00bbcc;
     color: #fff;
     border: none;
@@ -32,8 +32,33 @@
     padding: 8px 16px;
     margin-left: 10px;
     cursor: pointer;
-  }
-  
-  .nav-buttons button:hover {
+}
+
+.nav-buttons button:hover {
     background-color: #097d8a;
-  }
+}
+
+/* LOG IN POP UP */
+.login-modal {
+    background-color: gray;
+}
+
+.login-modal-content {
+    text-align: center;
+    background-color: #097d8a;
+}
+
+.login-close {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    font-size: 30px;
+}
+
+.content.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
