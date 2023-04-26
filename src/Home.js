@@ -3,6 +3,8 @@ import { useState } from "react";
 const Homepage = ({}) => {
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isNextClicked, setIsNextClicked] = useState(false);
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -10,13 +12,26 @@ const Homepage = ({}) => {
 
   const handleLoginClose = () => {
     setShowLogin(false);
+    setIsNextClicked(false);
+    setUsername("");
+    setPassword("");
   };
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
-  const handleNextClick = () => {};
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleNextClick = () => {
+    setIsNextClicked(true);
+  };
+
+  const handleLoginSubmit = () => {
+    handleLoginClose();
+  };
 
   return (
     <div className="page-wrapper">
@@ -40,9 +55,23 @@ const Homepage = ({}) => {
                 value={username}
                 onChange={handleUsernameChange}
               />
-              {/* Nästa-knappen */}
-              <button onClick={handleNextClick}>Nästa</button>
-              <p>Har du inget konto? Registrera dig</p>
+              {!isNextClicked && (
+                <button onClick={handleNextClick}>Next</button>
+              )}
+              {isNextClicked && (
+                <>
+                  <input
+                    placeholder="Lösenord"
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                  />
+                  <button onClick={handleLoginSubmit}>Log in</button>
+                </>
+              )}
+              <p>Har du inget konto? <a className="link" href="#">Registrera dig</a></p> 
             </div>
           </div>
         </div>
