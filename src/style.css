@@ -1,121 +1,146 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    padding: 0 20px;
-}
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+        padding: 0 20px;
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-links li {
+        margin-right: 20px;
+    }
+    
+    .nav-links a {
+        color: #333;
+        text-decoration: none;
+    }
+    
+    .nav-buttons {
+        display: flex;
+    }
+    
+    .nav-buttons button {
+        background-color: white;
+        color: black;
+        border-style: none;
+        border-radius: 20px;
+        padding: 0.6rem 2rem 0.6rem 2rem;
+        margin: 0rem 0.5rem;
+        cursor: pointer;
+    }
+    
+    .nav-buttons button:hover {
+        background-color: white 0.5;
+    }
+    
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background-color: rgb(29, 155, 240);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+    
+    .content-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* LOG IN POP UP */
+    .login-modal {
+        background-color: gray;
+    }
+    
+    .center {
+        padding-bottom: 3rem;
+    }
+    
+    .login-modal-content {
+        text-align: center;
+        background-color: #ebebeb;
+        width: 50%;
+        top: 50%;
+        margin: auto;
+        margin-top: 5rem;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+    
+    .login-close {
+        display: flex;
+        flex-direction: row;
+        padding-left: 1rem;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    
+    .content-login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 2rem;
+    }
+    
+    .content-login input {
+        margin-bottom: 1.5rem;
+        width: 40%;
+        padding: 0.7rem 1rem 0.7rem 1rem;
+        border-style: none;
+        border-radius: 5px;
+    }
+    
+    .content-login > button {
+        border-style: none;
+        border-radius: 20px;
+        width: 40%;
+        padding: 0.7rem 1rem 0.7rem 1rem;
+        background-color: rgb(29, 155, 240);
+        color: white;
+    }
 
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-right: 20px;
-}
-
-.nav-links a {
-    color: #333;
-    text-decoration: none;
-}
-
-.nav-buttons {
-    display: flex;
-}
-
-.nav-buttons button {
-    background-color: white;
-    color: black;
-    border-style: none;
-    border-radius: 20px;
-    padding: 0.6rem 2rem 0.6rem 2rem;
-    margin: 0rem 0.5rem;
-    cursor: pointer;
-}
-
-.nav-buttons button:hover {
-    background-color: 0.5;
-}
-
-
-.login-btn-footer>button {
-    border-style: solid;
-    background-color: transparent;
-    color: white;
-}
-
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background-color: rgb(29, 155, 240);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.content-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}   
-
-/* LOG IN POP UP */
-.login-modal {
-    background-color: gray;
-}
-
-.login-modal-content {
-    text-align: center;
-    background-color: #097d8a;
-    width: 50%;
-    top: 50%;
-    margin: auto;
-    margin-top: 5rem;
-    background-color: #097d8a;
-    text-align: center;
-    padding: 1rem;
-    border-radius: 1rem;
-}
-
-.login-close {
-    display: flex;
-    flex-direction: row;
-    padding-left: 1rem;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.content-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 2rem;
-
-}
-
-.content-login input {
-    margin-bottom: 1rem;
-    width: 40%;
-    padding: 0.7rem 1rem 0.7rem 1rem;
-    border-style: none;
-    border-radius: 5px;
-}
-
-.content-login>button {
-    border-style: none;
-    border-radius: 20px;
-    width: 40%;
-    padding: 0.7rem 1rem 0.7rem 1rem;
-    background-color: rgb(29, 155, 240);
-    color: white;
-}
+    .link {
+        text-decoration: solid;
+        color: rgb(29, 155, 240);
+    }
+    
+    /* LOG IN POP UP - VIEW 2 */
+    .login-modal-content.view2 {
+        height: 220px;
+    }
+    
+    .content-login.view2 {
+        padding-top: 30px;
+    }
+    
+    .content-login.view2 input {
+        margin-bottom: 1.5rem;
+        width: 40%;
+        padding: 0.7rem 1rem 0.7rem 1rem;
+        border-style: none;
+        border-radius: 5px;
+    }
+    
+    .content-login.view2 > button {
+        border-style: none;
+        border-radius: 20px;
+        width: 40%;
+        padding: 0.7rem 1rem 0.7rem 1rem;
+        background-color: rgb(29, 155, 240);
+        color: white;
+    }
+    
