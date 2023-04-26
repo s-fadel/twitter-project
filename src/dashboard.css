@@ -1,0 +1,223 @@
+/* Stil för sidans bakgrund */
+body {
+    background-color: #fff;
+    /* Ange vit bakgrundsfärg */
+    overflow-x: hidden;
+    /* Dölj horisontell rullningslist */
+}
+
+/* Stil för huvudområdet/dashboard */
+.dashboard {
+    width: 100vw;
+    /* Ange bredden till 100% av skärmens bredd */
+    height: 100vh;
+    /* Ange höjden till 100% av skärmens höjd */
+    margin: 0;
+    /* Ange marginalen till 0 */
+    padding: 0;
+    /* Ange vadderingen till 0 */
+}
+
+/* Stil för vänstra sidofältet */
+.left-sidebar {
+    position: fixed;
+    /* Fast positionering */
+    top: 0;
+    /* Avstånd från sidans topp */
+    left: 0;
+    /* Avstånd från sidans vänsterkant */
+    height: 100vh;
+    /* Ange höjden till 100% av skärmens höjd */
+    width: 13vw;
+    /* Ange bredden till 13% av skärmens bredd */
+    background-color: #fff;
+    /* Ange vit bakgrundsfärg */
+    margin-right: 1px solid #eff3f4;
+    /* Lägg till en högermarginal med 1px solid linje */
+}
+
+/* Stil för innehållsflödet */
+.feed {
+    margin-left: 13vw;
+    /* Ange vänstermarginalen till 13% av skärmens bredd */
+    height: fit-content;
+    /* Höjd baserat på innehållet */
+    width: 48vw;
+    /* Ange bredden till 48% av skärmens bredd */
+    border: 1px solid #eff3f4;
+    /* Ange en 1px solid kant runt flödet */
+    background-color: #Fff;
+    /* Ange vit bakgrundsfärg */
+}
+
+/* Stil för filtreringssektionen i flödet */
+.feed .filter {
+    position: fixed;
+    /* Fast positionering */
+    top: 0;
+    /* Avstånd från sidans topp */
+    width: 48vw;
+    /* Ange bredden till 48% av skärmens bredd */
+    height: 100px;
+    /* Ange höjden till 100px */
+    background-color: #fff;
+    /* Ange vit bakgrundsfärg */
+    opacity: 0.9;
+    /* Sätt opacitet till 0.9 */
+    border-bottom: 1px solid #eff3f4;
+    /* Lägg till en bottenkant med 1px solid linje */
+}
+
+/* Stil för filterrubrik */
+.filter h2 {
+    margin-left: 20px;
+    /* Ange vänstermarginalen till 20px */
+    margin-top: 20px;
+    /* Ange toppmarginalen till 20px */
+}
+
+/* Stil för kontainern med nytt inlägg i flödet */
+.feed .new-post-container {
+    margin-top: 100px;
+    /* Ange avståndet från toppen av flödet */
+    width: 48vw;
+    /* Bredden på kontainern */
+    height: 200px;
+    /* Höjden på kontainern */
+    background-color: #FFFF;
+    /* Bakgrundsfärg */
+    border-bottom: 1px solid #eff3f4;
+    /* Kantlinje längst ner */
+}
+
+/* Stil för profilbilder i både nya inlägg och befintliga inlägg */
+.new-post-container img,
+.post-container img {
+    float: left;
+    /* Låter bilden flyta åt vänster */
+    margin-top: 2.5vh;
+    /* Avståndet från toppen av kontainern */
+    margin-left: 1vw;
+    /* Avståndet från vänsterkanten */
+    height: 45px;
+    /* Bildhöjd */
+    width: 45px;
+    /* Bildbredd */
+    background-color: #eee;
+    /* Bakgrundsfärg bakom bilden */
+    border-radius: 100%;
+    /* Rundade kanter på bilden */
+}
+
+/* Stil för textområdet i nya inlägg */
+.new-post-container textarea {
+    margin-left: 1vw;
+    /* Avståndet från vänsterkanten */
+    margin-top: 5vw;
+    /* Avståndet från toppen av kontainern */
+    width: 35vw;
+    /* Bredden på textområdet */
+    height: 75px;
+    /* Höjden på textområdet */
+    resize: none;
+    /* Förhindra ändring av storlek på textområdet */
+    overflow: hidden;
+    /* Göm överskottet av innehåll */
+    font-size: 16px;
+    /* Textstorlek */
+    border: none;
+    /* Inga kanter runt textområdet */
+}
+
+/* Ta bort fokusramen på textområdet */
+textarea:focus {
+    outline: none;
+}
+
+/* Stil för verktygsraden i nya inlägg */
+.new-post-container .post-tools {
+    float: right;
+    /* Flytta verktygsraden åt höger */
+    margin-right: 2.5vh;
+    /* Avståndet från högerkanten */
+    border-top: 1px solid #eff3f4;
+    /* Kantlinje längst upp */
+    height: fit-content;
+    /* Höjden baserad på innehåll */
+    width: 35vw;
+    /* Bredden på verktygsraden */
+}
+
+/* Stil för "skicka" knappen i verktygsraden */
+.post-tools input[type="submit"] {
+    margin-top: 7.5px;
+    /* Avståndet från toppen av verktygsraden */
+    height: 40px;
+    /* Knappens höjd */
+    width: 80px;
+    /* Knappens bredd */
+    float: right;
+    /* Flytta knappen åt höger */
+
+    border-radius: 30px;
+    /* Rundade kanter på knappen */
+    text-align: center;
+    /* Centrera texten i knappen */
+    border: none;
+    /* Inga kanter runt knappen */
+    background-color: #1d9bf0;
+    /* Knappens bakgrundsfärg */
+    color: #fff;
+    /* Textfärg */
+    padding: 10px;
+    /* Inre marginal */
+    line-height: 20px;
+    /* Radhöjd */
+}
+
+/* Stil för "skicka" knappen när muspekaren är över den */
+.post-tools input[type="submit"]:hover {
+    background-color: #238dd8;
+    /* Ändra bakgrundsfärgen vid muspekarens överlägg */
+}
+
+/* Stil för inläggskontainrar i flödet */
+.post-container {
+    width: 100%;
+    /* Bredden på kontainern */
+    height: 150px;
+    /* Höjden på kontainern */
+
+    background-color: #Fff;
+    /* Bakgrundsfärg */
+    border-bottom: 1px solid #eff3f4;
+    /* Kantlinje längst ner */
+}
+
+/* Stil för inläggskontainrar när muspekaren är över dem */
+.post-container:hover {
+    background-color: #f7f7f7;
+    /* Ändra bakgrundsfärgen vid muspekarens överlägg */
+}
+
+/* Stil för texten inuti inläggskontainrarna */
+.post-container .text-container {
+    margin-top: 5vh;
+    /* Avståndet från toppen av kontainern */
+    float: right;
+    /* Flytta texten åt höger */
+    width: 41vw;
+    /* Bredden på textområdet */
+    height: 75px;
+    /* Höjden på textområdet */
+    background-color: transparent;
+    /* Transparent bakgrund */
+    padding: 0 20px;
+    /* Inre marginal */
+    overflow-wrap: break-word;
+    /* Ordindelning */
+    word-wrap: break-word;
+    /* Ordindelning */
+    box-sizing: border-box;
+    /* Inkludera marginal och padding i elementets totala bredd och höjd */
+}
