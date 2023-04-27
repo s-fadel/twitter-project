@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 
-// Dashboard-komponent
 const Dashboard = () => {
+  const [posts, setPosts] = useState([]);
+
+  // Get data from local storage on component mount
+  useEffect(() => {
+    const storedPosts = JSON.parse(localStorage.getItem("posts"));
+    if (storedPosts) {
+      setPosts(storedPosts);
+    }
+  }, []);
+
+  // Update local storage when posts state changes
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
+
+  // Handle form submission to add new post
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newPost = {
+      username: "Omar",
+      content: formData.get("content"),
+      image: "",
+    };
+    setPosts([newPost, ...posts]);
+  };
+
   return (
     <div className="dashboard">
       {/* Vänster sidofält */}
@@ -18,10 +44,11 @@ const Dashboard = () => {
         {/* Nytt inläggskontainer */}
         <div className="new-post-container">
           <img src="#" />
-          <form action="" method="post">
+          <form onSubmit={handleSubmit}>
             <textarea
               maxLength="140"
               minLength="1"
+              name="content"
               placeholder="What's happening?"
             ></textarea>
 
@@ -40,16 +67,15 @@ const Dashboard = () => {
         </center>
 
         {/* Inläggskontainer */}
-        <div className="post-container">
-          <div className="text-container">
-            <a href="">Omar</a>
-            <p>
-              aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            </p>
+        {posts.map((post, index) => (
+          <div className="post-container" key={index}>
+            <div className="text-container">
+              <a href="#">{post.username}</a>
+              <p>{post.content}</p>
+            </div>
+            {post.image && <img src={post.image} alt="image" />}
           </div>
-          <img src="" />
-        </div>
-        {/* Lägg till ytterligare inläggskontainrar här */}
+        ))}
       </div>
     </div>
   );
