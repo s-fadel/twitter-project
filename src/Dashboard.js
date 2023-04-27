@@ -4,7 +4,7 @@ import "./dashboard.css";
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
 
-  // Get data from local storage on component mount
+  // Få local storage
   useEffect(() => {
     const storedPosts = JSON.parse(localStorage.getItem("posts"));
     if (storedPosts) {
@@ -12,12 +12,12 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Update local storage when posts state changes
+  // Updaterar local storag när post state ändras
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
 
-  // Handle form submission to add new post
+  // Hantera submit och skapa en ny post
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -27,6 +27,12 @@ const Dashboard = () => {
       image: "",
     };
     setPosts([newPost, ...posts]);
+  };
+
+  // Konvererar hashtags till clickbara länkar
+  const renderHashtags = (text) => {
+    const regex = /#(\w+)/g;
+    return text.replace(regex, '<a href="/search?q=$1">#$1</a>');
   };
 
   return (
@@ -71,7 +77,11 @@ const Dashboard = () => {
           <div className="post-container" key={index}>
             <div className="text-container">
               <a href="#">{post.username}</a>
-              <p>{post.content}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: renderHashtags(post.content),
+                }}
+              ></p>
             </div>
             {post.image && <img src={post.image} alt="image" />}
           </div>
