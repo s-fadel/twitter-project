@@ -1,43 +1,5 @@
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-        padding: 0 20px;
-    }
-    
-    .nav-links {
-        display: flex;
-        list-style: none;
-    }
-    
-    .nav-links li {
-        margin-right: 20px;
-    }
-    
-    .nav-links a {
-        color: #333;
-        text-decoration: none;
-    }
-    
-    .nav-buttons {
-        display: flex;
-    }
-    
-    .nav-buttons button {
-        background-color: white;
-        color: black;
-        border-style: none;
-        border-radius: 20px;
-        padding: 0.6rem 2rem 0.6rem 2rem;
-        margin: 0rem 0.5rem;
-        cursor: pointer;
-    }
-    
-    .nav-buttons button:hover {
-        background-color: white 0.5;
-    }
-    
+    /* NAVBAR I BOTTEN AV SIDAN FÖR LOGGA IN  */
+
     .footer {
         position: fixed;
         bottom: 0;
@@ -58,6 +20,39 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-links li {
+        margin-right: 20px;
+    }
+    
+    .nav-links a {
+        color: #333;
+        text-decoration: none;
+    }
+    
+    /* KNAPPAR TILL NAVBAREN */
+    .nav-buttons {
+        display: flex;
+    }
+    
+    .nav-buttons button {
+        background-color: white;
+        color: black;
+        border-style: none;
+        border-radius: 20px;
+        padding: 0.6rem 2rem 0.6rem 2rem;
+        margin: 0rem 0.5rem;
+        cursor: pointer;
+    }
+    
+    .nav-buttons button:hover {
+        background-color: white 0.5;
     }
     
     /* LOG IN POP UP */
@@ -144,3 +139,10 @@
         color: white;
     }
     
+    .register-close {
+        display: flex;
+        flex-direction: row;
+        padding-left: 1rem;
+        font-size: 30px;
+        cursor: pointer;
+    }
