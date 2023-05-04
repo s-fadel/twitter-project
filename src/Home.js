@@ -6,20 +6,36 @@ const Homepage = ({}) => {
   const [password, setPassword] = useState("");
   const [isNextClicked, setIsNextClicked] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [registerUsername, setRegisterUsername] = useState("")
-  const [registerPassword, setRegisterPassword] = useState("")
+  const [registerUsername, setRegisterUsername] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
 
+  const localStorageKey = "Twitter_project";
+
+  function createToken() {
+    const users =  {
+      username: registerUsername,
+      password: registerPassword,
+    };
+    localStorage.setItem(localStorageKey, JSON.stringify(users));
+
+  }
+
+  const getUserInfo = () => {
+    const token = localStorage.getItem(localStorageKey);
+    return token;
+  };
 
   const handleLoginClick = () => {
     setShowLogin(true);
     setShowRegister(false);
+    console.log("hej", getUserInfo())
   };
 
   const handleLoginClose = () => {
     setShowLogin(false);
     setIsNextClicked(false);
     setUsername("");
-    setPassword(""); //Maxi är best
+    setPassword(""); 
   };
 
   const handleUsernameChange = (event) => {
@@ -41,7 +57,7 @@ const Homepage = ({}) => {
   const handleRegisterClick = () => {
     setShowRegister(true);
     setShowLogin(false);
-  }
+  };
 
   const handleRegisterClose = () => {
     setShowRegister(false);
@@ -50,13 +66,27 @@ const Homepage = ({}) => {
     setRegisterPassword("");
   };
 
+  const handleRegisterSubmit = () => {
+    handleRegisterClose();
+    createToken();
+  }
+
+
+  const handleRegisterUsername = (event) => {
+    setRegisterUsername(event.target.value);
+  };
+
+  const handleRegisterPassword = (event) => {
+    setRegisterPassword(event.target.value);
+  };
+  
 
   return (
     <div className="page-wrapper">
-      <div className="content-wrapper">
-      </div>
+      <div className="content-wrapper"></div>
 
       {/* Popup-rutan */}
+
       {showLogin && (
         <div className="login-modal-wrapper">
           <div className="login-modal-content">
@@ -64,6 +94,7 @@ const Homepage = ({}) => {
               &times;
             </span>
             <h2 className="center">Log in on Twitter</h2>
+<form>
             <div className="content-login">
               <input
                 placeholder="Username"
@@ -72,6 +103,7 @@ const Homepage = ({}) => {
                 name="username"
                 value={username}
                 onChange={handleUsernameChange}
+                required
               />
               {!isNextClicked && (
                 <button onClick={handleNextClick}>Next</button>
@@ -85,12 +117,22 @@ const Homepage = ({}) => {
                     name="password"
                     value={password}
                     onChange={handlePasswordChange}
+                    required
                   />
+                  
                   <button onClick={handleLoginSubmit}>Log in</button>
                 </>
+                
               )}
-              <p>Har du inget konto? <a className="link" href="#">Registrera dig</a></p> 
+             
+              <p>
+                Har du inget konto?{" "}
+                <a className="link" onClick={handleRegisterClick}>
+                  Registrera dig
+                </a>
+              </p>
             </div>
+            </form>
           </div>
         </div>
       )}
@@ -108,25 +150,25 @@ const Homepage = ({}) => {
                 id="register-username"
                 name="username"
                 value={registerUsername}
-                onChange={handleUsernameChange}
+                onChange={handleRegisterUsername}
               />
-                  <input
-                    placeholder="Password"
-                    type="password"
-                    id="register-password"
-                    name="password"
-                    value={registerPassword}
-                    onChange={handlePasswordChange}
-                  />
-                    <input
-                    placeholder="Verify password"
-                    type="password"
-                    id="verify-password"
-                    name="password"
-                    value={registerPassword}
-                    onChange={handlePasswordChange}
-                  />
-                  <button onClick={handleLoginSubmit}>Register</button>
+              <input
+                placeholder="Password"
+                type="password"
+                id="register-password"
+                name="password"
+                value={registerPassword}
+                onChange={handleRegisterPassword}
+              />
+              <input
+                placeholder="Verify password"
+                type="password"
+                id="verify-password"
+                name="password"
+                value={registerPassword}
+                onChange={handlePasswordChange}
+              />
+              <button onClick={handleRegisterSubmit}>Register</button>
             </div>
           </div>
         </div>
@@ -137,8 +179,15 @@ const Homepage = ({}) => {
         <div className="content-wrapper">
           <ul className="nav-links"></ul>
           <div className="nav-buttons">
-            <button className="login-btn-footer" onClick={handleLoginClick}>Log in</button>
-            <button className="register-btn-footer" onClick={handleRegisterClick}>Register</button>
+            <button className="login-btn-footer" onClick={handleLoginClick}>
+              Log in
+            </button>
+            <button
+              className="register-btn-footer"
+              onClick={handleRegisterClick}
+            >
+              Register
+            </button>
           </div>
         </div>
       </footer>

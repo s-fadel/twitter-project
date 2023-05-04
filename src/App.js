@@ -6,12 +6,10 @@ import Trending from "./Trending";
 import Register from "./Register";
 
 const App = () => {
-  const localStorageKey = "Twitter_project";
 
   const [view, setView] = useState("HOME");
 
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify());
   }, []);
 
   switch (view) {

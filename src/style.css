@@ -111,6 +111,7 @@
     .link {
         text-decoration: solid;
         color: rgb(29, 155, 240);
+        cursor: pointer;
     }
     
     /* LOG IN POP UP - VIEW 2 */
