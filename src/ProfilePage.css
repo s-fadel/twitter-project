@@ -1,0 +1,230 @@
+/* Set global font-family */
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto, Arial, sans-serif;
+}
+
+/* Profile page container */
+.profile-page {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 0rem 2rem;
+}
+
+/* Profile header */
+.profile-header {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+/* Profile image */
+.profile-image {
+	position: relative;
+	top: -100px; /* Shift the profile image up by half of its height */
+	border: 3px solid #ffffff; /* Add a white border */
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 20px;
+	z-index: 1;
+	width: fit-content;
+}
+.profile-image img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+/* Profile details */
+.profile-details {
+	position: relative;
+	top: -100px; /* Adjust the position to maintain the same spacing */
+}
+.profile-details a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.profile-details a:hover {
+	text-decoration: underline;
+}
+
+.profile-details h1 {
+	font-size: 2.5rem;
+	margin: 0;
+}
+
+.profile-details h2 {
+	font-size: 1.5rem;
+	margin: 0;
+	color: #657786;
+}
+
+.profile-details p {
+	font-size: 1.1rem;
+	margin: 0;
+	margin-top: 10px;
+}
+
+/* Profile stats */
+.profile-stats {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-left: auto;
+}
+
+.profile-stats p {
+	font-size: 1.1rem;
+	margin: 0;
+	margin-top: 5px;
+}
+.profile-content {
+	position: relative;
+	top: -75px; /* Shift the profile image up by half of its height */
+	display: flex;
+	align-items: flex-end;
+	margin-top: -75px; /* Adjust the margin to maintain the same spacing */
+	padding-bottom: 75px; /* Add padding to compensate for the negative margin */
+}
+
+/* Navigation */
+nav {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+nav button {
+	background-color: transparent;
+	border: none;
+	font-size: 1.2rem;
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+nav button:hover {
+	text-decoration: underline;
+}
+
+nav button:focus {
+	outline: none;
+}
+
+/* Active tab */
+nav button.active {
+	font-weight: bold;
+}
+
+/* Tweet container */
+.tweet-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+
+.tweet {
+	padding: 10px;
+	border: 1px solid #e6ecf0;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.tweet-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tweet-username {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.tweet-date {
+	font-size: 1rem;
+	color: #657786;
+}
+
+.tweet-text {
+	margin-top: 10px;
+}
+
+/* Media container */
+.media {
+	margin-top: 20px;
+}
+
+.media p {
+	font-size: 1.2rem;
+	margin: 0;
+}
+
+/* Followers container */
+.followers {
+	margin-top: 20px;
+}
+
+.followers p {
+	font-size: 1.2rem;
+	margin: 0;
+	margin-bottom: 5px;
+}
+.banner-image {
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+}
+.follow-button {
+	background-color: #1da1f2;
+	color: #ffffff;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 20px;
+	font-size: 1.2rem;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
+.follow-button:hover {
+	background-color: #0d8ebf;
+}
+
+.followers-info,
+.following-info {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+.top-bar {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 1rem;
+}
+.top-bar-info {
+	display: flex;
+	align-items: center;
+}
+
+.back-arrow {
+	font-size: 1.5rem;
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
+.top-bar-name {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.tweet-count {
+	font-size: 0.9rem;
+	color: #657786; /* Set the color to grey */
+	margin-left: 0.5rem;
+}
+mark {
+	background-color: white;
+	font-weight: bold;
+	color: grey;
+	padding: 0.2rem;
+}

@@ -19,7 +19,7 @@ const Homepage = ({}) => {
     setShowLogin(false);
     setIsNextClicked(false);
     setUsername("");
-    setPassword("");
+    setPassword(""); //Maxi är best
   };
 
   const handleUsernameChange = (event) => {

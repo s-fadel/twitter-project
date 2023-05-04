@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 
-// Dashboard-komponent
 const Dashboard = () => {
+  const [posts, setPosts] = useState([]);
+
+  // Få local storage
+  useEffect(() => {
+    const storedPosts = JSON.parse(localStorage.getItem("posts"));
+    if (storedPosts) {
+      setPosts(storedPosts);
+    }
+  }, []);
+
+  // Updaterar local storag när post state ändras
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
+
+  // Hantera submit och skapa en ny post
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newPost = {
+      username: "Omar",
+      content: formData.get("content"),
+      image: "",
+    };
+    setPosts([newPost, ...posts]);
+  };
+
+  // Konvererar hashtags till clickbara länkar
+  const renderHashtags = (text) => {
+    const regex = /#(\w+)/g;
+    return text.replace(regex, '<a href="/search?q=$1">#$1</a>');
+  };
+
   return (
     <div className="dashboard">
       {/* Vänster sidofält */}
@@ -18,10 +50,11 @@ const Dashboard = () => {
         {/* Nytt inläggskontainer */}
         <div className="new-post-container">
           <img src="#" />
-          <form action="" method="post">
+          <form onSubmit={handleSubmit}>
             <textarea
               maxLength="140"
               minLength="1"
+              name="content"
               placeholder="What's happening?"
             ></textarea>
 
@@ -40,16 +73,19 @@ const Dashboard = () => {
         </center>
 
         {/* Inläggskontainer */}
-        <div className="post-container">
-          <div className="text-container">
-            <a href="">Omar</a>
-            <p>
-              aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            </p>
+        {posts.map((post, index) => (
+          <div className="post-container" key={index}>
+            <div className="text-container">
+              <a href="#">{post.username}</a>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: renderHashtags(post.content),
+                }}
+              ></p>
+            </div>
+            {post.image && <img src={post.image} alt="image" />}
           </div>
-          <img src="" />
-        </div>
-        {/* Lägg till ytterligare inläggskontainrar här */}
+        ))}
       </div>
     </div>
   );
