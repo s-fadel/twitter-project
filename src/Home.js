@@ -4,21 +4,27 @@ const Homepage = ({}) => {
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("")
   const [isNextClicked, setIsNextClicked] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const localStorageKey = "Twitter_project";
 
-  function createToken() {
-    const users =  {
+  const createUser = () => {
+    const user = {
       username: registerUsername,
       password: registerPassword,
+      email: email,
     };
-    localStorage.setItem(localStorageKey, JSON.stringify(users));
-
+    const existingUsers = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+    existingUsers.push(user);
+    localStorage.setItem(localStorageKey, JSON.stringify(existingUsers));
   }
+
 
   const getUserInfo = () => {
     const token = localStorage.getItem(localStorageKey);
@@ -28,14 +34,15 @@ const Homepage = ({}) => {
   const handleLoginClick = () => {
     setShowLogin(true);
     setShowRegister(false);
-    console.log("hej", getUserInfo())
+    console.log("hej", getUserInfo());
   };
 
   const handleLoginClose = () => {
     setShowLogin(false);
     setIsNextClicked(false);
     setUsername("");
-    setPassword(""); 
+    setPassword("");
+    setEmail("")
   };
 
   const handleUsernameChange = (event) => {
@@ -46,12 +53,23 @@ const Homepage = ({}) => {
     setPassword(event.target.value);
   };
 
-  const handleNextClick = () => {
-    setIsNextClicked(true);
+  const handleNextClick = (e) => {
+    e.preventDefault();
+    if (username) {
+      setIsNextClicked(true);
+    }
   };
 
-  const handleLoginSubmit = () => {
-    handleLoginClose();
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const userList = JSON.parse(localStorage.getItem(localStorageKey));
+    const user = userList.find((u) => u.username === username && u.email === email);
+    if (user && password === user.password) {
+      handleLoginClose();
+      setLoginError(""); 
+    } else {
+      setLoginError("User or password is wrong");
+    }
   };
 
   const handleRegisterClick = () => {
@@ -64,22 +82,31 @@ const Homepage = ({}) => {
     setShowLogin(false);
     setRegisterUsername("");
     setRegisterPassword("");
+    setEmail("");
   };
 
   const handleRegisterSubmit = () => {
+    
     handleRegisterClose();
-    createToken();
-  }
-
+    createUser();
+  };
 
   const handleRegisterUsername = (event) => {
     setRegisterUsername(event.target.value);
   };
 
+  const handleRegisterEmail = (event) => {
+    setEmail(event.target.value);
+  }
+
   const handleRegisterPassword = (event) => {
     setRegisterPassword(event.target.value);
   };
-  
+
+  const handleVerifyPassword = (event) => {
+    setVerifyPassword(event.target.value);
+
+  }
 
   return (
     <div className="page-wrapper">
@@ -94,44 +121,45 @@ const Homepage = ({}) => {
               &times;
             </span>
             <h2 className="center">Log in on Twitter</h2>
-<form>
-            <div className="content-login">
-              <input
-                placeholder="Username"
-                type="text"
-                id="username"
-                name="username"
-                value={username}
-                onChange={handleUsernameChange}
-                required
-              />
-              {!isNextClicked && (
-                <button onClick={handleNextClick}>Next</button>
-              )}
-              {isNextClicked && (
-                <>
-                  <input
-                    placeholder="Lösenord"
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                  />
-                  
-                  <button onClick={handleLoginSubmit}>Log in</button>
-                </>
-                
-              )}
-             
-              <p>
-                Har du inget konto?{" "}
-                <a className="link" onClick={handleRegisterClick}>
-                  Registrera dig
-                </a>
-              </p>
-            </div>
+            <form onSubmit={handleLoginSubmit}>
+              <div className="content-login">
+                <input
+                  placeholder="Username or email"
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  required
+                />
+                {!isNextClicked && (
+                  <button onClick={handleNextClick}>Next</button>
+                )}
+                {isNextClicked && (
+                  <>
+                    <input
+                      placeholder="Lösenord"
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                      required
+                    />
+
+                    <button type="submit">Log in</button>
+                   
+                  </>
+                )}
+
+                <p>
+                Don't have an account? {" "}
+                  <a className="link" onClick={handleRegisterClick}>
+                  Register here
+                  </a>
+                  {loginError && <p className="error-message">{loginError}</p>}
+                </p>
+              </div>
             </form>
           </div>
         </div>
@@ -143,33 +171,43 @@ const Homepage = ({}) => {
               &times;
             </span>
             <h2 className="center">Register your account</h2>
-            <div className="content-login">
-              <input
-                placeholder="Username"
-                type="text"
-                id="register-username"
-                name="username"
-                value={registerUsername}
-                onChange={handleRegisterUsername}
-              />
-              <input
-                placeholder="Password"
-                type="password"
-                id="register-password"
-                name="password"
-                value={registerPassword}
-                onChange={handleRegisterPassword}
-              />
-              <input
-                placeholder="Verify password"
-                type="password"
-                id="verify-password"
-                name="password"
-                value={registerPassword}
-                onChange={handlePasswordChange}
-              />
-              <button onClick={handleRegisterSubmit}>Register</button>
-            </div>
+            <form onSubmit={handleRegisterSubmit}>
+              <div className="content-login">
+                <input
+                  placeholder="Username"
+                  type="text"
+                  id="register-username"
+                  name="username"
+                  value={registerUsername}
+                  onChange={handleRegisterUsername}
+                />
+                <input
+                  placeholder="Email"
+                  type="text"
+                  id="create-email"
+                  name="email"
+                  value={email}
+                  onChange={handleRegisterEmail}
+                />
+                <input
+                  placeholder="Password"
+                  type="password"
+                  id="register-password"
+                  name="password"
+                  value={registerPassword}
+                  onChange={handleRegisterPassword}
+                />
+                <input
+                  placeholder="Verify password"
+                  type="password"
+                  id="verify-password"
+                  name="password"
+                  value={verifyPassword}
+                  onChange={handleVerifyPassword}
+                />
+                <button type="submit">Register</button>
+              </div>
+            </form>
           </div>
         </div>
       )}

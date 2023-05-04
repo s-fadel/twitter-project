@@ -114,6 +114,11 @@
         cursor: pointer;
     }
     
+    .error-message {
+        color: red;
+        font-size: smaller;
+        font-style: italic;
+    }
     /* LOG IN POP UP - VIEW 2 */
     .login-modal-content.view2 {
         height: 220px;
