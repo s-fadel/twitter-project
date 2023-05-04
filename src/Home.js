@@ -5,9 +5,14 @@ const Homepage = ({}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isNextClicked, setIsNextClicked] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [registerUsername, setRegisterUsername] = useState("")
+  const [registerPassword, setRegisterPassword] = useState("")
+
 
   const handleLoginClick = () => {
     setShowLogin(true);
+    setShowRegister(false);
   };
 
   const handleLoginClose = () => {
@@ -32,6 +37,19 @@ const Homepage = ({}) => {
   const handleLoginSubmit = () => {
     handleLoginClose();
   };
+
+  const handleRegisterClick = () => {
+    setShowRegister(true);
+    setShowLogin(false);
+  }
+
+  const handleRegisterClose = () => {
+    setShowRegister(false);
+    setShowLogin(false);
+    setRegisterUsername("");
+    setRegisterPassword("");
+  };
+
 
   return (
     <div className="page-wrapper">
@@ -76,6 +94,43 @@ const Homepage = ({}) => {
           </div>
         </div>
       )}
+      {showRegister && (
+        <div className="login-modal-wrapper">
+          <div className="login-modal-content">
+            <span className="register-close" onClick={handleRegisterClose}>
+              &times;
+            </span>
+            <h2 className="center">Register your account</h2>
+            <div className="content-login">
+              <input
+                placeholder="Username"
+                type="text"
+                id="register-username"
+                name="username"
+                value={registerUsername}
+                onChange={handleUsernameChange}
+              />
+                  <input
+                    placeholder="Password"
+                    type="password"
+                    id="register-password"
+                    name="password"
+                    value={registerPassword}
+                    onChange={handlePasswordChange}
+                  />
+                    <input
+                    placeholder="Verify password"
+                    type="password"
+                    id="verify-password"
+                    name="password"
+                    value={registerPassword}
+                    onChange={handlePasswordChange}
+                  />
+                  <button onClick={handleLoginSubmit}>Register</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="footer">
@@ -83,7 +138,7 @@ const Homepage = ({}) => {
           <ul className="nav-links"></ul>
           <div className="nav-buttons">
             <button className="login-btn-footer" onClick={handleLoginClick}>Log in</button>
-            <button>Register</button>
+            <button className="register-btn-footer" onClick={handleRegisterClick}>Register</button>
           </div>
         </div>
       </footer>
