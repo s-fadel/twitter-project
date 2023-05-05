@@ -4,15 +4,16 @@ import Home from "./Home";
 import Profile from "./Profile";
 import Trending from "./Trending";
 import Register from "./Register";
+import Dashboard from "./Dashboard";
 
 const App = () => {
+  const [view, setView] = useState("DASHBOARD");
 
-  const [view, setView] = useState("HOME");
-
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   switch (view) {
+    case "DASHBOARD":
+      return <Dashboard setView={setView} />;
     case "HOME":
       return <Home setView={setView} />;
     case "PROFILE":
