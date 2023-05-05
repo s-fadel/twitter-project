@@ -7,7 +7,7 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 
 const App = () => {
-  const [view, setView] = useState("DASHBOARD");
+  const [view, setView] = useState("HOME");
 
   useEffect(() => {}, []);
 
