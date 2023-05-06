@@ -9,8 +9,6 @@ import Dashboard from "./Dashboard";
 const App = () => {
   const [view, setView] = useState("HOME");
 
-  useEffect(() => {}, []);
-
   switch (view) {
     case "DASHBOARD":
       return <Dashboard setView={setView} />;
