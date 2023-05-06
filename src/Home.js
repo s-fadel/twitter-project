@@ -4,13 +4,14 @@ const Homepage = ({}) => {
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("")
   const [isNextClicked, setIsNextClicked] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [registerError, setRegisterError] = useState("");
 
   const localStorageKey = "Twitter_project";
 
@@ -18,23 +19,18 @@ const Homepage = ({}) => {
     const user = {
       username: registerUsername,
       password: registerPassword,
-      email: email,
+      email: registerEmail,
     };
-    const existingUsers = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+    const existingUsers =
+      JSON.parse(localStorage.getItem(localStorageKey)) || [];
     existingUsers.push(user);
     localStorage.setItem(localStorageKey, JSON.stringify(existingUsers));
-  }
-
-
-  const getUserInfo = () => {
-    const token = localStorage.getItem(localStorageKey);
-    return token;
   };
+
 
   const handleLoginClick = () => {
     setShowLogin(true);
     setShowRegister(false);
-    console.log("hej", getUserInfo());
   };
 
   const handleLoginClose = () => {
@@ -42,8 +38,8 @@ const Homepage = ({}) => {
     setIsNextClicked(false);
     setUsername("");
     setPassword("");
-    setEmail("")
   };
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -62,11 +58,13 @@ const Homepage = ({}) => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const userList = JSON.parse(localStorage.getItem(localStorageKey));
-    const user = userList.find((u) => u.username === username && u.email === email);
+    const userList = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+    const user = userList.length && userList.find((u) => {
+      return u.username === username || u.email === username;  // username som användaren skriver in, kan vara email eller användarnamn. Och detta jämförs med email och username frrån localstorage
+    });
     if (user && password === user.password) {
       handleLoginClose();
-      setLoginError(""); 
+      setLoginError("");
     } else {
       setLoginError("User or password is wrong");
     }
@@ -82,13 +80,30 @@ const Homepage = ({}) => {
     setShowLogin(false);
     setRegisterUsername("");
     setRegisterPassword("");
-    setEmail("");
+    setVerifyPassword("");
+    setRegisterEmail("");
   };
 
-  const handleRegisterSubmit = () => {
-    
-    handleRegisterClose();
-    createUser();
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    setRegisterError("");
+    const users = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+  const userAlreadyExist = users.length && users.find((u) => {
+      return u.username === registerUsername || u.email === registerEmail;  
+    });
+
+    if(userAlreadyExist) {
+      setRegisterError("User already exist");
+      return;
+    }
+
+    if (registerUsername && registerEmail && registerPassword && verifyPassword && verifyPassword === registerPassword) {
+      handleRegisterClose();
+      createUser();
+    } else {
+      setRegisterError("Password is not matched");
+    }
   };
 
   const handleRegisterUsername = (event) => {
@@ -96,8 +111,8 @@ const Homepage = ({}) => {
   };
 
   const handleRegisterEmail = (event) => {
-    setEmail(event.target.value);
-  }
+    setRegisterEmail(event.target.value);
+  };
 
   const handleRegisterPassword = (event) => {
     setRegisterPassword(event.target.value);
@@ -105,8 +120,7 @@ const Homepage = ({}) => {
 
   const handleVerifyPassword = (event) => {
     setVerifyPassword(event.target.value);
-
-  }
+  };
 
   return (
     <div className="page-wrapper">
@@ -148,14 +162,13 @@ const Homepage = ({}) => {
                     />
 
                     <button type="submit">Log in</button>
-                   
                   </>
                 )}
 
                 <p>
-                Don't have an account? {" "}
+                  Don't have an account?{" "}
                   <a className="link" onClick={handleRegisterClick}>
-                  Register here
+                    Register here
                   </a>
                   {loginError && <p className="error-message">{loginError}</p>}
                 </p>
@@ -186,7 +199,7 @@ const Homepage = ({}) => {
                   type="text"
                   id="create-email"
                   name="email"
-                  value={email}
+                  value={registerEmail}
                   onChange={handleRegisterEmail}
                 />
                 <input
@@ -205,6 +218,8 @@ const Homepage = ({}) => {
                   value={verifyPassword}
                   onChange={handleVerifyPassword}
                 />
+                {registerError && <p className="error-message">{registerError}</p>}
+
                 <button type="submit">Register</button>
               </div>
             </form>
