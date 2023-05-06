@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import "./dashboard.css";
 
-const Dashboard = () => {
+const Dashboard = ({ setView }) => {
   const [posts, setPosts] = useState([]);
 
   // Få local storage
@@ -24,7 +25,8 @@ const Dashboard = () => {
     const newPost = {
       username: "Omar",
       content: formData.get("content"),
-      image: "",
+      image:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     };
     setPosts([newPost, ...posts]);
   };
@@ -38,7 +40,18 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       {/* Vänster sidofält */}
-      <div className="left-sidebar"></div>
+      <div className="left-sidebar">
+        <div className="menu-container">
+          <div className="profil-holder">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
+            <a href="#" onClick={() => setView("PROFILE")}>
+              Omar
+            </a>
+          </div>
+
+          <button id="logout">Logga ut</button>
+        </div>
+      </div>
 
       {/* Flödeskomponent */}
       <div className="feed">
@@ -49,7 +62,7 @@ const Dashboard = () => {
 
         {/* Nytt inläggskontainer */}
         <div className="new-post-container">
-          <img src="#" />
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
           <form onSubmit={handleSubmit}>
             <textarea
               maxLength="140"
