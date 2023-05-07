@@ -134,6 +134,7 @@ const Dashboard = ({ setView }) => {
                   __html: renderHashtags(post.content),
                 }}
               ></p>
+              <label className="date-label"> {post.date}</label>
             </div>
             {post.image && <img src={post.image} alt="image" />}
           </div>

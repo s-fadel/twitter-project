@@ -310,3 +310,16 @@ textarea:focus {
     background-color: #222;
     color: #fff;
 }
+
+.date-label {
+    float: right;
+    width: 60px;
+    height: 20px;
+    background-color: #eee;
+    padding: 5px;
+    border-radius: 30px;
+    border: none;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+}
