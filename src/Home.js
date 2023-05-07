@@ -12,6 +12,10 @@ const Homepage = ({ setView }) => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
+  const [about, setAbout] = useState("");
+  const [employment, setEmployment] = useState("");
+  const [homeTown, setHomeTown] = useState("");
+
 
   const localStorageKey = "Twitter_project";
 
@@ -20,6 +24,9 @@ const Homepage = ({ setView }) => {
       username: registerUsername,
       password: registerPassword,
       email: registerEmail,
+      about: about,
+      employment: employment,
+      homeTown: homeTown,
     };
     const existingUsers =
       JSON.parse(localStorage.getItem(localStorageKey)) || [];
@@ -37,7 +44,7 @@ const Homepage = ({ setView }) => {
     setShowLogin(false);
     setIsNextClicked(false);
     setUsername("");
-    setPassword("");
+    setPassword("");  
   };
 
 
@@ -84,6 +91,9 @@ const Homepage = ({ setView }) => {
     setRegisterPassword("");
     setVerifyPassword("");
     setRegisterEmail("");
+    setAbout("");
+    setEmployment("");
+    setHomeTown("");
   };
 
   const handleRegisterSubmit = (e) => {
@@ -124,6 +134,20 @@ const Homepage = ({ setView }) => {
     setVerifyPassword(event.target.value);
   };
 
+  const handleAbout = (event) => {
+    setAbout(event.target.value);
+  }; 
+  
+  const handleEmployment = (event) => {
+    setEmployment(event.target.value);
+  };
+
+  const handleHomeTown = (event) => {
+    setHomeTown(event.target.value);
+  };
+
+
+  
   return (
     <div className="page-wrapper">
       <div className="content-wrapper"></div>
@@ -180,7 +204,7 @@ const Homepage = ({ setView }) => {
         </div>
       )}
       {showRegister && (
-        <div className="login-modal-wrapper">
+        <div>
           <div className="login-modal-content">
             <span className="register-close" onClick={handleRegisterClose}>
               &times;
@@ -219,6 +243,30 @@ const Homepage = ({ setView }) => {
                   name="password"
                   value={verifyPassword}
                   onChange={handleVerifyPassword}
+                />
+                 <input
+                  placeholder="About"
+                  type="text"
+                  id="about"
+                  name="about"
+                  value={about}
+                  onChange={handleAbout}
+                />
+                  <input
+                  placeholder="Employment"
+                  type="text"
+                  id="employment"
+                  name="employment"
+                  value={employment}
+                  onChange={handleEmployment}
+                />
+                  <input
+                  placeholder="Home town"
+                  type="text"
+                  id="hometown"
+                  name="hometown"
+                  value={homeTown}
+                  onChange={handleHomeTown}
                 />
                 {registerError && <p className="error-message">{registerError}</p>}
 
