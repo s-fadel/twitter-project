@@ -22,6 +22,15 @@ const Dashboard = ({ setView }) => {
     setShowPopup(false);
   };
 
+  // Get local storage and find logged-in user
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("Twitter_project"));
+    if (storedData) {
+      const loggedUser = storedData.find((user) => user.isLoggedIn);
+      setCurrentUser(loggedUser.username);
+    }
+  }, []);
+
   // Få local storage
   useEffect(() => {
     const storedPosts = JSON.parse(localStorage.getItem("posts"));
@@ -46,7 +55,7 @@ const Dashboard = ({ setView }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newPost = {
-      username: "Omar",
+      username: currentUser,
       content: formData.get("content"),
       date: formattedDate,
       image:
@@ -82,7 +91,7 @@ const Dashboard = ({ setView }) => {
           <div className="profil-holder">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
             <a href="#" onClick={() => setView("PROFILE")}>
-              @Omar
+              @{currentUser}
             </a>
           </div>
 
