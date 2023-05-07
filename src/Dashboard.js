@@ -3,7 +3,24 @@ import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 
 const Dashboard = ({ setView }) => {
+  const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
+
+  const handleLogout = () => {
+    setShowPopup(true);
+  };
+
+  const handleCancelLogout = () => {
+    setShowPopup(false);
+  };
+
+  const handleConfirmLogout = () => {
+    localStorage.removeItem("Twitter_project");
+
+    setView("HOME");
+
+    setShowPopup(false);
+  };
 
   // Få local storage
   useEffect(() => {
@@ -18,14 +35,13 @@ const Dashboard = ({ setView }) => {
     localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
 
-
   // Hantera submit och skapa en ny post
   const handleSubmit = (event) => {
     //Jag lägger till data till posts (MAXIMUS)
     const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleString('default', {
-      month: 'short',
-      day: 'numeric',
+    const formattedDate = currentDate.toLocaleString("default", {
+      month: "short",
+      day: "numeric",
     });
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -47,17 +63,32 @@ const Dashboard = ({ setView }) => {
 
   return (
     <div className="dashboard">
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Are you sure you want to log out?</p>
+            <div className="popup-buttons">
+              <button onClick={handleConfirmLogout}>Logout</button>
+              <button id="c" onClick={handleCancelLogout}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Vänster sidofält */}
       <div className="left-sidebar">
         <div className="menu-container">
           <div className="profil-holder">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
             <a href="#" onClick={() => setView("PROFILE")}>
-              Omar
+              @Omar
             </a>
           </div>
 
-          <button id="logout">Logga ut</button>
+          <button id="logout" onClick={handleLogout}>
+            Logga ut
+          </button>
         </div>
       </div>
 
@@ -97,13 +128,15 @@ const Dashboard = ({ setView }) => {
         {posts.map((post, index) => (
           <div className="post-container" key={index}>
             <div className="text-container">
-              {/* Lägger till setView i de individuella tweetsen också (maximus)*/}
-              <a href="#" onClick={() => setView("PROFILE")}>{post.username}</a>
+              <a href="#" onClick={() => setView("PROFILE")}>
+                {post.username}
+              </a>
               <p
                 dangerouslySetInnerHTML={{
                   __html: renderHashtags(post.content),
                 }}
               ></p>
+              <label className="date-label"> {post.date}</label>
             </div>
             {post.image && <img src={post.image} alt="image" />}
           </div>
