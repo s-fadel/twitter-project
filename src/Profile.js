@@ -20,21 +20,29 @@ function ProfilePage({ setView, selectedUser }) {
     const [tweetCount, setTweetCount] = useState(0);
     const [followers, setFollowers] = useState(0);
     const [isOwnProfile, setIsOwnProfile] = useState(false);
+    const [userData, setUserData] = useState({});
+
     const goBack = () => {
         setView("DASHBOARD");
     };
-    const usersList = JSON.parse(localStorage.getItem(localStorageKey));
-    const userData = usersList.find((user) => user.username === selectedUser);
+    useEffect(() => {
+        const usersList = JSON.parse(localStorage.getItem(localStorageKey));
+        const user = usersList.find((user) => user.username === selectedUser);
+        setUserData(user);
+    }, [selectedUser]);
+
 
     useEffect(() => {
-        const storedPosts = JSON.parse(localStorage.getItem("posts"));
-        if (storedPosts) {
-            const userPosts = storedPosts.filter(
-                (post) => post.username === userData.username
-            );
-            setUserTweets(userPosts);
+        if (userData.username) {
+            const storedPosts = JSON.parse(localStorage.getItem("posts"));
+            if (storedPosts) {
+                const userPosts = storedPosts.filter(
+                    (post) => post.username === userData.username
+                );
+                setUserTweets(userPosts);
+            }
         }
-    }, [userData]);
+    }, [userData.username]);
 
     useEffect(() => {
         setTweetCount(userTweets.length);
@@ -45,9 +53,7 @@ function ProfilePage({ setView, selectedUser }) {
         setFollowersCount(following ? followersCount - 1 : followersCount + 1);
     };
     const loggedInUser = "loggedInUserUsername"; // Replace with the actual logged-in user's username
-    useEffect(() => {
-        setIsOwnProfile(selectedUser === loggedInUser);
-    }, [selectedUser, loggedInUser]);
+
 
     const {
         username,
