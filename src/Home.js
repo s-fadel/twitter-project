@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Homepage = ({}) => {
+const Homepage = ({ setView }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -65,6 +65,8 @@ const Homepage = ({}) => {
     if (user && password === user.password) {
       handleLoginClose();
       setLoginError("");
+      //Lägger till att om användaren är inloggad så ska den gå till dashboard (MAXIMUS)
+      setView("DASHBOARD");
     } else {
       setLoginError("User or password is wrong");
     }
@@ -89,11 +91,11 @@ const Homepage = ({}) => {
     setRegisterError("");
     const users = JSON.parse(localStorage.getItem(localStorageKey)) || [];
 
-  const userAlreadyExist = users.length && users.find((u) => {
-      return u.username === registerUsername || u.email === registerEmail;  
+    const userAlreadyExist = users.length && users.find((u) => {
+      return u.username === registerUsername || u.email === registerEmail;
     });
 
-    if(userAlreadyExist) {
+    if (userAlreadyExist) {
       setRegisterError("User already exist");
       return;
     }

@@ -97,7 +97,8 @@ const Dashboard = ({ setView }) => {
         {posts.map((post, index) => (
           <div className="post-container" key={index}>
             <div className="text-container">
-              <a href="#">{post.username}</a>
+              {/* Lägger till setView i de individuella tweetsen också (maximus)*/}
+              <a href="#" onClick={() => setView("PROFILE")}>{post.username}</a>
               <p
                 dangerouslySetInnerHTML={{
                   __html: renderHashtags(post.content),

@@ -49,7 +49,7 @@ function ProfilePage() {
     const [followersCount, setFollowersCount] = useState(user.followers);
     const [userData, setUserData] = useState(user);
     const [userTweets, setUserTweets] = useState([]);
-
+    const [tweetCount, setTweetCount] = useState(0);
     useEffect(() => {
         const storedPosts = JSON.parse(localStorage.getItem("posts"));
         if (storedPosts) {
@@ -66,6 +66,10 @@ function ProfilePage() {
             setUserData({ ...userData, username: parsedData[0].username });
         }
     }, []);
+
+    useEffect(() => {
+        setTweetCount(userTweets.length);
+    }, [userTweets]);
 
     const {
         name,
@@ -119,7 +123,7 @@ function ProfilePage() {
                     <i className="back-arrow">←</i>
                     <h2 className="top-bar-name">{user.name}</h2>
                 </div>
-                <span className="tweet-count">{user.tweets.length} Tweets</span>
+                <span className="tweet-count">{tweetCount} Tweets</span>
             </div>
             <header className="banner">
                 <img
