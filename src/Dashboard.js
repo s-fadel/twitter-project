@@ -3,7 +3,21 @@ import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 
 const Dashboard = ({ setView }) => {
+  const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
+
+  const handleLogout = () => {
+    setShowPopup(true);
+  };
+
+  const handleCancelLogout = () => {
+    setShowPopup(false);
+  };
+
+  const handleConfirmLogout = () => {
+    
+    setShowPopup(false);
+  };
 
   // Få local storage
   useEffect(() => {
@@ -46,26 +60,32 @@ const Dashboard = ({ setView }) => {
 
   return (
     <div className="dashboard">
-      <div className="popup">
-        <div className="popup-content">
-          <p>Are you sure you want to log out?</p>
-          <div className="popup-buttons">
-            <button>Logout</button>
-            <button id="c">Cancel</button>
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Are you sure you want to log out?</p>
+            <div className="popup-buttons">
+              <button onClick={handleConfirmLogout}>Logout</button>
+              <button id="c" onClick={handleCancelLogout}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       {/* Vänster sidofält */}
       <div className="left-sidebar">
         <div className="menu-container">
           <div className="profil-holder">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
             <a href="#" onClick={() => setView("PROFILE")}>
-              Omar
+              @Omar
             </a>
           </div>
 
-          <button id="logout">Logga ut</button>
+          <button id="logout" onClick={handleLogout}>
+            Logga ut
+          </button>
         </div>
       </div>
 
