@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { localStorageKey } from "./App";
 
 import "./dashboard.css";
 
@@ -15,7 +16,15 @@ const Dashboard = ({ setView }) => {
   };
 
   const handleConfirmLogout = () => {
-    localStorage.removeItem("Twitter_project");
+    const userList = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+    for (let i = 0; i < userList.length; i++) {
+      if (userList[i].isLoggedIn === true) {
+        userList[i].isLoggedIn = false; // Update the isLoggedIn status for the current user
+      }
+    }
+
+    localStorage.setItem(localStorageKey, JSON.stringify(userList));
 
     setView("HOME");
 
@@ -37,6 +46,9 @@ const Dashboard = ({ setView }) => {
 
   // Hantera submit och skapa en ny post
   const handleSubmit = (event) => {
+    const userList = JSON.parse(localStorage.getItem(localStorageKey)) || []; // get users from localstorage
+    const loggedInUser = userList.length ? userList.find((user) => user.isLoggedIn) : null; // find logged in user  
+
     //Jag lägger till data till posts (MAXIMUS)
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleString("default", {
@@ -46,7 +58,7 @@ const Dashboard = ({ setView }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newPost = {
-      username: "Omar",
+      username: loggedInUser ? loggedInUser.username : '',
       content: formData.get("content"),
       date: formattedDate,
       image:

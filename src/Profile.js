@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCalendarAlt, faMapMarkerAlt, faUserPlus, faUsers, faLink } from "@fortawesome/free-solid-svg-icons";
-
+import { localStorageKey } from "./App";
 
 const user = {
     name: "Steve Harvey",
@@ -59,7 +59,7 @@ function ProfilePage() {
     }, [userData]);
 
     useEffect(() => {
-        const localStorageData = localStorage.getItem("Twitter_project");
+        const localStorageData = localStorage.getItem(localStorageKey) || [];
         const parsedData = localStorageData ? JSON.parse(localStorageData) : null;
 
         if (parsedData && parsedData[0] && parsedData[0].username) {
