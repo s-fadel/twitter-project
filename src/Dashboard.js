@@ -15,7 +15,8 @@ const Dashboard = ({ setView }) => {
   };
 
   const handleConfirmLogout = () => {
-    
+    setView("HOME");
+
     setShowPopup(false);
   };
 
