@@ -46,6 +46,15 @@ const Dashboard = ({ setView }) => {
 
   return (
     <div className="dashboard">
+      <div className="popup">
+        <div className="popup-content">
+          <p>Are you sure you want to log out?</p>
+          <div className="popup-buttons">
+            <button>Logout</button>
+            <button id="c">Cancel</button>
+          </div>
+        </div>
+      </div>
       {/* Vänster sidofält */}
       <div className="left-sidebar">
         <div className="menu-container">
