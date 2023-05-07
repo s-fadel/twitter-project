@@ -18,14 +18,13 @@ const Dashboard = ({ setView }) => {
     localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
 
-
   // Hantera submit och skapa en ny post
   const handleSubmit = (event) => {
     //Jag lägger till data till posts (MAXIMUS)
     const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleString('default', {
-      month: 'short',
-      day: 'numeric',
+    const formattedDate = currentDate.toLocaleString("default", {
+      month: "short",
+      day: "numeric",
     });
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -97,7 +96,9 @@ const Dashboard = ({ setView }) => {
         {posts.map((post, index) => (
           <div className="post-container" key={index}>
             <div className="text-container">
-              <a href="#">{post.username}</a>
+              <a href="#" onClick={() => setView("PROFILE")}>
+                {post.username}
+              </a>
               <p
                 dangerouslySetInnerHTML={{
                   __html: renderHashtags(post.content),
