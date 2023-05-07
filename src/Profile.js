@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faCalendarAlt, faMapMarkerAlt, faUserPlus, faUsers, faLink } from "@fortawesome/free-solid-svg-icons";
@@ -47,6 +47,25 @@ function ProfilePage() {
     const [activeTab, setActiveTab] = useState("tweets");
     const [following, setFollowing] = useState(user.following);
     const [followersCount, setFollowersCount] = useState(user.followers);
+    const [userData, setUserData] = useState(user);
+    const [userTweets, setUserTweets] = useState([]);
+
+    useEffect(() => {
+        const storedPosts = JSON.parse(localStorage.getItem("posts"));
+        if (storedPosts) {
+            const userPosts = storedPosts.filter(post => post.username === userData.username);
+            setUserTweets(userPosts);
+        }
+    }, [userData]);
+
+    useEffect(() => {
+        const localStorageData = localStorage.getItem("Twitter_project");
+        const parsedData = localStorageData ? JSON.parse(localStorageData) : null;
+
+        if (parsedData && parsedData[0] && parsedData[0].username) {
+            setUserData({ ...userData, username: parsedData[0].username });
+        }
+    }, []);
 
     const {
         name,
@@ -59,20 +78,28 @@ function ProfilePage() {
         followers,
         followingCount,
         tweets,
-    } = user;
+    } = userData;
+
 
     let activeContent;
     switch (activeTab) {
         case "tweets":
             activeContent = (
                 <div className="tweet-container">
-                    {user.tweets.slice().reverse().map((tweet) => (
-                        <div key={tweet.id} className="tweet">
+                    {userTweets.slice().reverse().map((tweet, index) => (
+                        <div key={index} className="tweet">
                             <div className="tweet-header">
-                                <span className="tweet-username">@{user.username}</span>
+                                <div className="tweet-username-container">
+                                    <img
+                                        className="tweet-pfp"
+                                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                                        alt={userData.username}
+                                    />
+                                    <span className="tweet-username">@{userData.username}</span>
+                                </div>
                                 <span className="tweet-date">{tweet.date}</span>
                             </div>
-                            <div className="tweet-text">{tweet.text}</div>
+                            <div className="tweet-text">{tweet.content}</div>
                         </div>
                     ))}
                 </div>
@@ -97,18 +124,18 @@ function ProfilePage() {
             <header className="banner">
                 <img
                     className="banner-image"
-                    src="https://via.placeholder.com/1500x500"
+                    src="https://via.placeholder.com/1500x500?text=Banner+Image"
                     alt="Banner"
                 />
             </header>
             <div className="profile-image">
-                <img src={user.profileImageUrl} alt={user.name} />
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt={user.name} />
             </div>
             <div className="profile-details">
                 <div className="profile-header">
                     <div className="name-and-username">
                         <h1>{user.name}</h1>
-                        <h2 style={{ fontSize: '18px' }}>@{user.username}</h2>
+                        <h2 style={{ fontSize: '18px' }}>@{userData.username}</h2>
                     </div>
                     <div className="profile-stats">
                         <button

@@ -18,13 +18,21 @@ const Dashboard = ({ setView }) => {
     localStorage.setItem("posts", JSON.stringify(posts));
   }, [posts]);
 
+
   // Hantera submit och skapa en ny post
   const handleSubmit = (event) => {
+    //Jag lägger till data till posts (MAXIMUS)
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleString('default', {
+      month: 'short',
+      day: 'numeric',
+    });
     event.preventDefault();
     const formData = new FormData(event.target);
     const newPost = {
       username: "Omar",
       content: formData.get("content"),
+      date: formattedDate,
       image:
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     };
