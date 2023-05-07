@@ -15,6 +15,8 @@ const Dashboard = ({ setView }) => {
   };
 
   const handleConfirmLogout = () => {
+    localStorage.removeItem("Twitter_project");
+
     setView("HOME");
 
     setShowPopup(false);
