@@ -47,7 +47,9 @@ const Dashboard = ({ setView }) => {
   // Hantera submit och skapa en ny post
   const handleSubmit = (event) => {
     const userList = JSON.parse(localStorage.getItem(localStorageKey)) || []; // get users from localstorage
-    const loggedInUser = userList.length ? userList.find((user) => user.isLoggedIn) : null; // find logged in user  
+    const loggedInUser = userList.length
+      ? userList.find((user) => user.isLoggedIn)
+      : null; // find logged in user
 
     //Jag lägger till data till posts (MAXIMUS)
     const currentDate = new Date();
@@ -58,7 +60,7 @@ const Dashboard = ({ setView }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newPost = {
-      username: loggedInUser ? loggedInUser.username : '',
+      username: loggedInUser ? loggedInUser.username : "",
       content: formData.get("content"),
       date: formattedDate,
       image:
@@ -72,6 +74,10 @@ const Dashboard = ({ setView }) => {
     const regex = /#(\w+)/g;
     return text.replace(regex, '<a href="/search?q=$1">#$1</a>');
   };
+
+  const loggedInUser = JSON.parse(localStorage.getItem(localStorageKey)).find(
+    (user) => user.isLoggedIn
+  );
 
   return (
     <div className="dashboard">
@@ -94,7 +100,7 @@ const Dashboard = ({ setView }) => {
           <div className="profil-holder">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
             <a href="#" onClick={() => setView("PROFILE")}>
-              @Omar
+              @{loggedInUser.username}
             </a>
           </div>
 
