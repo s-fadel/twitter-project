@@ -18,17 +18,13 @@ function ProfilePage({ setView, selectedUser }) {
     const [followersCount, setFollowersCount] = useState(0);
     const [userTweets, setUserTweets] = useState([]);
     const [tweetCount, setTweetCount] = useState(0);
+    const [followers, setFollowers] = useState(0);
+    const [isOwnProfile, setIsOwnProfile] = useState(false);
     const goBack = () => {
         setView("DASHBOARD");
     };
-
     const usersList = JSON.parse(localStorage.getItem(localStorageKey));
     const userData = usersList.find((user) => user.username === selectedUser);
-
-    useEffect(() => {
-        setFollowing(userData.following);
-        setFollowersCount(userData.followers);
-    }, [userData]);
 
     useEffect(() => {
         const storedPosts = JSON.parse(localStorage.getItem("posts"));
@@ -44,6 +40,15 @@ function ProfilePage({ setView, selectedUser }) {
         setTweetCount(userTweets.length);
     }, [userTweets]);
 
+    const handleFollow = () => {
+        setFollowing(!following);
+        setFollowersCount(following ? followersCount - 1 : followersCount + 1);
+    };
+    const loggedInUser = "loggedInUserUsername"; // Replace with the actual logged-in user's username
+    useEffect(() => {
+        setIsOwnProfile(selectedUser === loggedInUser);
+    }, [selectedUser, loggedInUser]);
+
     const {
         username,
         bio,
@@ -54,7 +59,6 @@ function ProfilePage({ setView, selectedUser }) {
         followingCount,
         tweets,
     } = userData;
-
 
     let activeContent;
     switch (activeTab) {
@@ -115,10 +119,7 @@ function ProfilePage({ setView, selectedUser }) {
                     <div className="profile-stats">
                         <button
                             className="follow-button"
-                            onClick={() => {
-                                setFollowing(!following);
-                                setFollowersCount(following ? followersCount - 1 : followersCount + 1);
-                            }}
+                            onClick={handleFollow}
                         >
                             {following ? "Following" : "Follow"}
                         </button>
@@ -146,7 +147,7 @@ function ProfilePage({ setView, selectedUser }) {
                             <FontAwesomeIcon icon={faUserPlus} /><mark>{userData.following}</mark> Following
                         </p>
                         <p>
-                            <FontAwesomeIcon icon={faUsers} /><mark>{userData.followers}</mark> Followers
+                            <FontAwesomeIcon icon={faUsers} /><mark>{followersCount}</mark> Followers
                         </p>
                     </div>
                 </div>

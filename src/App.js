@@ -11,7 +11,6 @@ const App = () => {
   const [view, setView] = useState("HOME");
   const [selectedUser, setSelectedUser] = useState("");
 
-
   switch (view) {
     case "DASHBOARD":
       return <Dashboard setSelectedUser={setSelectedUser} setView={setView} />;
