@@ -9,14 +9,16 @@ export const localStorageKey = "Twitter_project";
 
 const App = () => {
   const [view, setView] = useState("HOME");
+  const [selectedUser, setSelectedUser] = useState("");
+
 
   switch (view) {
     case "DASHBOARD":
-      return <Dashboard setView={setView} />;
+      return <Dashboard setSelectedUser={setSelectedUser} setView={setView} />;
     case "HOME":
       return <Home setView={setView} />;
     case "PROFILE":
-      return <Profile setView={setView} />;
+      return <Profile selectedUser={selectedUser} setView={setView} />;
     default:
       return <Trending setView={setView} />;
   }

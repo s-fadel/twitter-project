@@ -3,9 +3,10 @@ import { localStorageKey } from "./App";
 
 import "./dashboard.css";
 
-const Dashboard = ({ setView }) => {
+const Dashboard = ({ setView, setSelectedUser }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
+
 
   const handleLogout = () => {
     setShowPopup(true);
@@ -99,7 +100,7 @@ const Dashboard = ({ setView }) => {
         <div className="menu-container">
           <div className="profil-holder">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
-            <a href="#" onClick={() => setView("PROFILE")}>
+            <a href="#" onClick={() => { setSelectedUser(loggedInUser.username); setView("PROFILE"); }}>
               @{loggedInUser.username}
             </a>
           </div>
@@ -146,7 +147,7 @@ const Dashboard = ({ setView }) => {
         {posts.map((post, index) => (
           <div className="post-container" key={index}>
             <div className="text-container">
-              <a href="#" onClick={() => setView("PROFILE")}>
+              <a href="#" onClick={() => { setSelectedUser(post.username); setView("PROFILE"); }}>
                 {post.username}
               </a>
               <p

@@ -20,6 +20,12 @@ const Homepage = ({ setView }) => {
 
 
   const createUser = () => {
+    //Lägger till datum för när användaren skapades (MAXIMUS)
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const formattedDate = `${year}-${month}`;
+
     const user = {
       username: registerUsername,
       password: registerPassword,
@@ -28,6 +34,7 @@ const Homepage = ({ setView }) => {
       employment: employment,
       homeTown: homeTown,
       isLoggedIn: null,
+      createdDate: formattedDate // Lägger till datum för när användaren skapades (MAXIMUS)
     };
     const existingUsers =
       JSON.parse(localStorage.getItem(localStorageKey)) || [];
@@ -45,7 +52,7 @@ const Homepage = ({ setView }) => {
     setShowLogin(false);
     setIsNextClicked(false);
     setUsername("");
-    setPassword("");  
+    setPassword("");
   };
 
 
@@ -147,8 +154,8 @@ const Homepage = ({ setView }) => {
 
   const handleAbout = (event) => {
     setAbout(event.target.value);
-  }; 
-  
+  };
+
   const handleEmployment = (event) => {
     setEmployment(event.target.value);
   };
@@ -158,7 +165,7 @@ const Homepage = ({ setView }) => {
   };
 
 
-  
+
   return (
     <div className="page-wrapper">
       <div className="content-wrapper"></div>
@@ -255,7 +262,7 @@ const Homepage = ({ setView }) => {
                   value={verifyPassword}
                   onChange={handleVerifyPassword}
                 />
-                 <input
+                <input
                   placeholder="About"
                   type="text"
                   id="about"
@@ -263,7 +270,7 @@ const Homepage = ({ setView }) => {
                   value={about}
                   onChange={handleAbout}
                 />
-                  <input
+                <input
                   placeholder="Employment"
                   type="text"
                   id="employment"
@@ -271,7 +278,7 @@ const Homepage = ({ setView }) => {
                   value={employment}
                   onChange={handleEmployment}
                 />
-                  <input
+                <input
                   placeholder="Home town"
                   type="text"
                   id="hometown"
