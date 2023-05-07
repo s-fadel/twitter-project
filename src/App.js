@@ -7,7 +7,7 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 
 const App = () => {
-  const [view, setView] = useState("HOME");
+  const [view, setView] = useState("DASHBOARD");
 
   switch (view) {
     case "DASHBOARD":
