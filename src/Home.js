@@ -27,6 +27,7 @@ const Homepage = ({ setView }) => {
       about: about,
       employment: employment,
       homeTown: homeTown,
+      isLoggedIn: null,
     };
     const existingUsers =
       JSON.parse(localStorage.getItem(localStorageKey)) || [];
@@ -70,6 +71,16 @@ const Homepage = ({ setView }) => {
       return u.username === username || u.email === username;  // username som användaren skriver in, kan vara email eller användarnamn. Och detta jämförs med email och username frrån localstorage
     });
     if (user && password === user.password) {
+      for (let i = 0; i < userList.length; i++) {
+        if (userList[i].username === username || userList[i].email === username) {
+          userList[i].isLoggedIn = true; // Update the isLoggedIn status for the current user
+        } else {
+          userList[i].isLoggedIn = false; // Reset the isLoggedIn status for other users
+        }
+      }
+
+      localStorage.setItem(localStorageKey, JSON.stringify(userList));
+
       handleLoginClose();
       setLoginError("");
       //Lägger till att om användaren är inloggad så ska den gå till dashboard (MAXIMUS)
