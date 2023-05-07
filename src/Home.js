@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { localStorageKey } from "./App";
 
 const Homepage = ({ setView }) => {
   const [showLogin, setShowLogin] = useState(false);
@@ -17,7 +18,6 @@ const Homepage = ({ setView }) => {
   const [homeTown, setHomeTown] = useState("");
 
 
-  const localStorageKey = "Twitter_project";
 
   const createUser = () => {
     const user = {

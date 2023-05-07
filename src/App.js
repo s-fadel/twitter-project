@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import Home from "./Home";
 import Profile from "./Profile";
 import Trending from "./Trending";
-import Register from "./Register";
 import Dashboard from "./Dashboard";
+
+export const localStorageKey = "Twitter_project";
 
 const App = () => {
   const [view, setView] = useState("HOME");
@@ -16,8 +17,6 @@ const App = () => {
       return <Home setView={setView} />;
     case "PROFILE":
       return <Profile setView={setView} />;
-    case "LOGIN":
-      return <Register setView={setView} />;
     default:
       return <Trending setView={setView} />;
   }
