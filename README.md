@@ -1,9 +1,9 @@
 TWITTER APPLICATION 💻
-Välkommen till våran twitter app, för att använda vår app behöver du. 
+Welcome to our twitter app, to use our app you need:
 
-1. Registrera användare 
-2. Logga in på din registrerade användare
-3. Skapa ett inlägg 
-4. Klicka på ditt användarnamn för att komma in på din profil. Där kan du se bland annat bio, användarnamn, hemstad m.m. 
+1. Register users
+2. Log in to your registered user
+3. Create a post
+4. Click on your username to access your profile. There you can see, among other things, bio, username, hometown, etc.
 
-
+Clone this repository to your local machine. Install dependencies by running npm install in the project directory. Start the development server by running npm start.
