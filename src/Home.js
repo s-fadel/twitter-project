@@ -35,8 +35,8 @@ const Homepage = ({ setView }) => {
       homeTown: homeTown,
       isLoggedIn: null,
       createdDate: formattedDate, // Lägger till datum för när användaren skapades (MAXIMUS)
-      followers: Math.floor(Math.random() * 1000), // Add random followers count
-      following: Math.floor(Math.random() * 1000), // Add random following count
+      followers: [],
+      following: []
     };
     const existingUsers =
       JSON.parse(localStorage.getItem(localStorageKey)) || [];

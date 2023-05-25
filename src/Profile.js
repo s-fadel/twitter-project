@@ -28,6 +28,7 @@ function ProfilePage({ setView, selectedUser }) {
     useEffect(() => {
         const usersList = JSON.parse(localStorage.getItem(localStorageKey));
         const user = usersList.find((user) => user.username === selectedUser);
+        console.log(user);
         setUserData(user);
     }, [selectedUser]);
 
@@ -42,6 +43,11 @@ function ProfilePage({ setView, selectedUser }) {
                 setUserTweets(userPosts);
             }
         }
+        // Fetch the user list from local storage.
+        const userList = JSON.parse(localStorage.getItem(localStorageKey));
+        // Find the user where isLoggedIn is true
+        const loggedInUser = userList.find(user => user.isLoggedIn === true);
+        setIsOwnProfile(loggedInUser && loggedInUser.username === userData.username);
     }, [userData.username]);
 
     useEffect(() => {
@@ -123,12 +129,14 @@ function ProfilePage({ setView, selectedUser }) {
                         <h2 style={{ fontSize: '18px' }}>@{userData.username}</h2>
                     </div>
                     <div className="profile-stats">
-                        <button
-                            className="follow-button"
-                            onClick={handleFollow}
-                        >
-                            {following ? "Following" : "Follow"}
-                        </button>
+                        {!isOwnProfile && (
+                            <button
+                                className="follow-button"
+                                onClick={handleFollow}
+                            >
+                                {following ? "Following" : "Follow"}
+                            </button>
+                        )}
                     </div>
                 </div>
                 <div className="profile-info">
