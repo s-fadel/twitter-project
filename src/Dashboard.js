@@ -6,7 +6,7 @@ import "./dashboard.css";
 const Dashboard = ({ setView, setSelectedUser }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {
     setShowPopup(true);
@@ -80,6 +80,14 @@ const Dashboard = ({ setView, setSelectedUser }) => {
     (user) => user.isLoggedIn
   );
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredPosts = posts.filter((post) => {
+    return post.content.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="dashboard">
       {showPopup && (
@@ -96,15 +104,34 @@ const Dashboard = ({ setView, setSelectedUser }) => {
         </div>
       )}
       {/* Vänster sidofält */}
+      <div className="right-sidebar">
+        <form action="">
+          <input
+            className="search-input"
+            placeholder="Sök efter någon eller något"
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </form>
+      </div>
       <div className="left-sidebar">
         <div className="menu-container">
           <div className="profil-holder">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>{" "}
-            <a href="#" onClick={() => { setSelectedUser(loggedInUser.username); setView("PROFILE"); }}>
+            <img
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              alt="profile"
+            />
+            <a
+              href="#"
+              onClick={() => {
+                setSelectedUser(loggedInUser.username);
+                setView("PROFILE");
+              }}
+            >
               @{loggedInUser.username}
             </a>
           </div>
-
           <button id="logout" onClick={handleLogout}>
             Logga ut
           </button>
@@ -120,7 +147,10 @@ const Dashboard = ({ setView, setSelectedUser }) => {
 
         {/* Nytt inläggskontainer */}
         <div className="new-post-container">
-          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
+          <img
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            alt="profile"
+          />
           <form onSubmit={handleSubmit}>
             <textarea
               maxLength="140"
@@ -144,10 +174,16 @@ const Dashboard = ({ setView, setSelectedUser }) => {
         </center>
 
         {/* Inläggskontainer */}
-        {posts.map((post, index) => (
+        {filteredPosts.map((post, index) => (
           <div className="post-container" key={index}>
             <div className="text-container">
-              <a href="#" onClick={() => { setSelectedUser(post.username); setView("PROFILE"); }}>
+              <a
+                href="#"
+                onClick={() => {
+                  setSelectedUser(post.username);
+                  setView("PROFILE");
+                }}
+              >
                 {post.username}
               </a>
               <p
