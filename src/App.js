@@ -8,7 +8,7 @@ import Dashboard from "./Dashboard";
 export const localStorageKey = "Twitter_project";
 
 const App = () => {
-  const [view, setView] = useState("HOME");
+  const [view, setView] = useState("DASHBOARD");
   const [selectedUser, setSelectedUser] = useState("");
 
   switch (view) {

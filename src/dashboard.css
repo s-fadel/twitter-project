@@ -338,5 +338,28 @@ textarea:focus {
     top: 5vh;
     right: 5vw;
     width: 27vw;
+    height: 100wv;
 
+}
+
+.user-list {
+    margin-top: 80px;
+    background-color: #f3f3f3;
+    border-radius: 30px;
+}
+
+.profile-result {
+    height: 60px;
+   padding: 20px;
+    margin-right: 5vw;
+    width: 100%;
+ 
+    border-radius: 30px;
+    margin-top: 10px;
+
+}
+
+.profile-result a {
+    margin-left: 20px;
+    align-content: center;
 }
