@@ -11,27 +11,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { localStorageKey } from "./App";
 
-
 function ProfilePage({ setView, selectedUser }) {
     const [activeTab, setActiveTab] = useState("tweets");
     const [following, setFollowing] = useState(false);
     const [followersCount, setFollowersCount] = useState(0);
     const [userTweets, setUserTweets] = useState([]);
     const [tweetCount, setTweetCount] = useState(0);
-    const [followers, setFollowers] = useState(0);
     const [isOwnProfile, setIsOwnProfile] = useState(false);
     const [userData, setUserData] = useState({});
+    const [followingCount, setFollowingCount] = useState(0);
+    const [userFollowingCount, setUserFollowingCount] = useState(0);
 
     const goBack = () => {
         setView("DASHBOARD");
     };
+
     useEffect(() => {
         const usersList = JSON.parse(localStorage.getItem(localStorageKey));
         const user = usersList.find((user) => user.username === selectedUser);
-        console.log(user);
         setUserData(user);
-    }, [selectedUser]);
+        setUserFollowingCount(user.following.length);
+        setFollowersCount(user.followers.length);
 
+        const loggedInUser = usersList.find((user) => user.isLoggedIn === true);
+        const alreadyFollowing = loggedInUser.following.includes(user.username);
+        setFollowing(alreadyFollowing);
+    }, [selectedUser]);
 
     useEffect(() => {
         if (userData.username) {
@@ -43,9 +48,8 @@ function ProfilePage({ setView, selectedUser }) {
                 setUserTweets(userPosts);
             }
         }
-        // Fetch the user list from local storage.
+
         const userList = JSON.parse(localStorage.getItem(localStorageKey));
-        // Find the user where isLoggedIn is true
         const loggedInUser = userList.find(user => user.isLoggedIn === true);
         setIsOwnProfile(loggedInUser && loggedInUser.username === userData.username);
     }, [userData.username]);
@@ -54,11 +58,44 @@ function ProfilePage({ setView, selectedUser }) {
         setTweetCount(userTweets.length);
     }, [userTweets]);
 
+    useEffect(() => {
+        const usersList = JSON.parse(localStorage.getItem(localStorageKey));
+        const loggedInUser = usersList.find((user) => user.isLoggedIn);
+        if (loggedInUser) {
+            setFollowingCount(loggedInUser.following.length);
+        }
+    }, []);
+
     const handleFollow = () => {
-        setFollowing(!following);
-        setFollowersCount(following ? followersCount - 1 : followersCount + 1);
+        const usersList = JSON.parse(localStorage.getItem(localStorageKey));
+        const loggedInUser = usersList.find(user => user.isLoggedIn);
+        const alreadyFollowing = loggedInUser.following.includes(userData.username);
+
+        if (!alreadyFollowing) {
+            loggedInUser.following.push(userData.username);
+
+            const userIndex = usersList.findIndex(user => user.username === userData.username);
+            usersList[userIndex].followers.push(loggedInUser.username);
+
+            setFollowing(true);
+            setFollowersCount(followersCount + 1);
+        } else {
+            loggedInUser.following = loggedInUser.following.filter(username => username !== userData.username);
+
+            const userIndex = usersList.findIndex(user => user.username === userData.username);
+            usersList[userIndex].followers = usersList[userIndex].followers.filter(username => username !== loggedInUser.username);
+
+            setFollowing(false);
+            setFollowersCount(followersCount - 1);
+        }
+
+        const loggedInUserIndex = usersList.findIndex(user => user.isLoggedIn);
+        usersList[loggedInUserIndex] = loggedInUser;
+        localStorage.setItem(localStorageKey, JSON.stringify(usersList));
+
+        setFollowingCount(loggedInUser.following.length);
     };
-    const loggedInUser = "loggedInUserUsername"; // Replace with the actual logged-in user's username
+
 
 
     const {
@@ -68,7 +105,6 @@ function ProfilePage({ setView, selectedUser }) {
         professionalCategories,
         dateJoined,
         hometown,
-        followingCount,
         tweets,
     } = userData;
 
@@ -158,7 +194,7 @@ function ProfilePage({ setView, selectedUser }) {
                         <a href="https://www.example.com">https://www.example.com</a></p>
                     <div className="followers-info">
                         <p>
-                            <FontAwesomeIcon icon={faUserPlus} /><mark>{userData.following}</mark> Following
+                            <FontAwesomeIcon icon={faUserPlus} /><mark>{isOwnProfile ? followingCount : userFollowingCount}</mark> Following
                         </p>
                         <p>
                             <FontAwesomeIcon icon={faUsers} /><mark>{followersCount}</mark> Followers
