@@ -1,0 +1,36 @@
+.search-input {
+	float: right;
+	width: 100%;
+	height: 50px;
+	border-radius: 30px;
+	border: 1px solid #c8c8c8;
+	padding-left: 15px;
+}
+
+.right-sidebar {
+	position: absolute;
+	top: 5vh;
+	right: 10vw; /* increase this value to move the sidebar more to the right */
+	width: 27vw;
+	height: 100wv;
+}
+
+.user-list {
+	margin-top: 80px;
+	background-color: #f3f3f3;
+	border-radius: 30px;
+}
+
+.profile-result {
+	height: 60px;
+	padding: 20px;
+	margin-right: 5vw;
+	width: 100%;
+	border-radius: 30px;
+	margin-top: 10px;
+}
+
+.profile-result a {
+	margin-left: 20px;
+	align-content: center;
+}

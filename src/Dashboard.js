@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { localStorageKey } from "./App";
-
+import SearchBar from "./SearchBar";
 import "./dashboard.css";
 
 const Dashboard = ({ setView, setSelectedUser }) => {
@@ -122,38 +122,10 @@ const Dashboard = ({ setView, setSelectedUser }) => {
       )}
       {/* Left Sidebar */}
       {/* Right Sidebar */}
-      <div className="right-sidebar">
-        <form action="">
-          <input
-            className="search-input"
-            placeholder="Search for someone or something"
-            type="text"
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-        </form>
-        {userSearchQuery && filteredUsers.length > 0 && (
-          <div className="user-list">
-            {filteredUsers.map((user, index) => (
-              <div key={index}>
-                <div className="profile-result">
-                  <a
-                    className="profile-result"
-                    href="#"
-                    onClick={() => {
-                      setSelectedUser(user.username);
-                      setView("PROFILE");
-                    }}
-                  >
-                    {user.username}
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+      <div className="profile-page">
+        <SearchBar setSelectedUser={setSelectedUser} setView={setView} />
+        {/* ... Rest of your ProfilePage code */}
       </div>
-
       <div className="left-sidebar">
         <div className="menu-container">
           <div className="profil-holder">

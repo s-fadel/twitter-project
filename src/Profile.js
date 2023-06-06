@@ -10,8 +10,10 @@ import {
     faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { localStorageKey } from "./App";
+import SearchBar from "./SearchBar";
 
-function ProfilePage({ setView, selectedUser }) {
+
+function ProfilePage({ setView, selectedUser, setSelectedUser }) {
     const [activeTab, setActiveTab] = useState("tweets");
     const [following, setFollowing] = useState(false);
     const [followersCount, setFollowersCount] = useState(0);
@@ -206,7 +208,12 @@ function ProfilePage({ setView, selectedUser }) {
                 <h3 style={{ textDecorationLine: 'underline', textDecorationColor: 'black' }}>Tweets</h3>
             </nav>
             <main>{activeContent}</main>
+            <div className="profile-page">
+                <SearchBar setSelectedUser={setSelectedUser} setView={setView} />
+                {/* ... Rest of your ProfilePage code */}
+            </div>
         </div>
+
     );
 }
 export default ProfilePage;

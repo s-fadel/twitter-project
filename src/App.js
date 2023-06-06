@@ -17,7 +17,7 @@ const App = () => {
     case "HOME":
       return <Home setView={setView} />;
     case "PROFILE":
-      return <Profile selectedUser={selectedUser} setView={setView} />;
+      return <Profile setSelectedUser={setSelectedUser} selectedUser={selectedUser} setView={setView} />;
     default:
       return <Trending setView={setView} />;
   }
